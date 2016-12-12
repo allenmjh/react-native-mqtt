@@ -434,16 +434,16 @@
 - (void)setSubscriptions:(NSDictionary<NSString *, NSNumber *> *)newSubscriptions
 {
     if (self.state==MQTTSessionManagerStateConnected) {
-        for (NSString *topicFilter in self.effectiveSubscriptions) {
-            if (![newSubscriptions objectForKey:topicFilter]) {
-                [self.session unsubscribeTopic:topicFilter unsubscribeHandler:^(NSError *error) {
-                    if (!error) {
-                        [self.effectiveSubscriptions removeObjectForKey:topicFilter];
-                        self.effectiveSubscriptions = self.effectiveSubscriptions;
-                    }
-                }];
-            }
-        }
+//         for (NSString *topicFilter in self.effectiveSubscriptions) {
+//             if (![newSubscriptions objectForKey:topicFilter]) {
+//                 [self.session unsubscribeTopic:topicFilter unsubscribeHandler:^(NSError *error) {
+//                     if (!error) {
+//                         [self.effectiveSubscriptions removeObjectForKey:topicFilter];
+//                         self.effectiveSubscriptions = self.effectiveSubscriptions;
+//                     }
+//                 }];
+//             }
+//         }
         
         for (NSString *topicFilter in newSubscriptions) {
             if (![self.effectiveSubscriptions objectForKey:topicFilter]) {
