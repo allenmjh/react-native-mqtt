@@ -57,9 +57,27 @@
     self.clientRef = clientRef;
     self.options = [NSMutableDictionary dictionaryWithDictionary:self.defaultOptions]; // Set default options
     for (NSString *key in options.keyEnumerator) { // Replace default options
-        [self.options setValue:options[key] forKey:key];
+        if ([key isEqualToString:@"clientId"])
+        {
+            [self.options setValue:[NSString stringWithFormat:@"iosRN%@",[self getClientID]] forKey:key];
+        }
+        else
+        {
+            [self.options setValue:options[key] forKey:key];
+        }
     }
+    
     return self;
+}
+
+- (NSString *)getClientID
+{
+    char data[16];
+    
+    for (int x=0;x<16;data[x++] = (char)('A' + (arc4random_uniform(26))));
+    
+    return [[NSString alloc] initWithBytes:data length:16 encoding:NSUTF8StringEncoding];
+    
 }
 
 - (void) connect {
